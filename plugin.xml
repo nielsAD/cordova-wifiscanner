@@ -6,8 +6,10 @@
 
 	<name>WifiScanner</name>
 	<description>Interface to Android's WifiManager to list available access points and their signal strengths</description>
-	<license>MIT</license>
+	<license>Apache License V2</license>
 	<keywords>cordova,wifi,wifimanager,rssi,android</keywords>
+    <repo>https://github.com/nielsAD/cordova-wifiscanner.git</repo>
+    <issue>https://github.com/nielsAD/cordova-wifiscanner/issues</issue>
 
 	<js-module src="www/AccessPoint.js" name="AccessPoint">
 		<clobbers target="AccessPoint" />
