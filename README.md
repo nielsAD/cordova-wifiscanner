@@ -1,9 +1,9 @@
 cordova-wifiscanner
 ===================
 
-Cordova interface for Android's WifiManager to list available access points and their signal strengths.
+Cordova interface for [android.net.wifi.WifiManager](http://developer.android.com/reference/android/net/wifi/WifiManager.html) to list available access points and their signal strengths.
 
-The plugin is based on the [Device-Motion](http://plugins.cordova.io/#/package/org.apache.cordova.device-motion) plugin and exposes a similar API.
+This plugin is based on the structure of the [Device-Motion](http://plugins.cordova.io/#/package/org.apache.cordova.device-motion) plugin and exposes a similar API.
 
 Installation
 ------------
