@@ -6,7 +6,7 @@
 
 	<name>WifiScanner</name>
 	<description>Interface for android.net.wifi.WifiManager to list available access points and their signal strengths on Android.</description>
-	<license>Apache License V2</license>
+	<license>Apache 2.0</license>
 	<keywords>wifi,wifimanager,rssi</keywords>
     <repo>https://github.com/nielsAD/cordova-wifiscanner.git</repo>
     <issue>https://github.com/nielsAD/cordova-wifiscanner/issues</issue>
