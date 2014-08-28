@@ -11,15 +11,15 @@
     <repo>https://github.com/nielsAD/cordova-wifiscanner.git</repo>
     <issue>https://github.com/nielsAD/cordova-wifiscanner/issues</issue>
 
-	<js-module src="www/AccessPoint.js" name="AccessPoint">
-		<clobbers target="AccessPoint" />
-	</js-module>
-	
-	<js-module src="www/WifiScanner.js" name="wifi">
-		<clobbers target="navigator.wifi" />
-	</js-module>
-
 	<platform name="android">
+		<js-module src="www/AccessPoint.js" name="AccessPoint">
+			<clobbers target="AccessPoint" />
+		</js-module>
+
+		<js-module src="www/WifiScanner.js" name="wifi">
+			<clobbers target="navigator.wifi" />
+		</js-module>
+
 		<config-file target="res/xml/config.xml" parent="/*">
 			<feature name="WifiScanner">
 				<param name="android-package" value="nl.nielsad.cordova.wifiscanner.WifiListener"/>

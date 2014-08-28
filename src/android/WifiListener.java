@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -38,15 +39,25 @@ public class WifiListener extends CordovaPlugin {
 		ERROR_FAILED_TO_START
 	}
 
+	private static final String TAG = "WifiListener";
+
 	private Status status;
 	private CallbackContext callbackContext;
 	private WifiManager wifiManager;
 
 	private BroadcastReceiver wifiReceiver = new BroadcastReceiver(){
 		public void onReceive(Context c, Intent intent) {
-			if (WifiListener.this.status != Status.STOPPED) {
-				 WifiListener.this.win();
-				 WifiListener.this.wifiManager.startScan();
+			switch(WifiListener.this.status){
+				case STARTING:
+					WifiListener.this.setStatus(Status.RUNNING);
+				case RUNNING:
+					WifiListener.this.win();
+					WifiListener.this.wifiManager.startScan();
+					break;
+				case STOPPED:
+				case ERROR_FAILED_TO_START:
+					Log.d(TAG, "Ignored ScanResults");
+					break;
 			}
 		}
 	};
@@ -76,6 +87,7 @@ public class WifiListener extends CordovaPlugin {
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) {
+		Log.d(TAG, "execute(" + action + "," + this.status + ")");
 		if (action.equals("get")) {
 			this.win();
 			return true;
@@ -101,7 +113,7 @@ public class WifiListener extends CordovaPlugin {
 	public void onDestroy() {
 		this.stop();
 	}
-	
+
 	@Override
 	public void onReset() {
 		if (this.status == Status.RUNNING) {
@@ -114,14 +126,14 @@ public class WifiListener extends CordovaPlugin {
 		this.callbackContext.sendPluginResult(res);
 		return res;
 	}
-	
+
 	private void startTimeout(long delay) {
-		stopTimeout();
-		timeoutHandler.postDelayed(timeoutRunnable, delay);
+		this.stopTimeout();
+		this.timeoutHandler.postDelayed(this.timeoutRunnable, delay);
 	}
-	
+
 	private void stopTimeout() {
-		timeoutHandler.removeCallbacks(timeoutRunnable);
+		this.timeoutHandler.removeCallbacks(this.timeoutRunnable);
 	}
 
 	private Status start() {
@@ -134,9 +146,10 @@ public class WifiListener extends CordovaPlugin {
 		if (wifiManager.isWifiEnabled()) {
 			this.cordova.getActivity().registerReceiver(this.wifiReceiver, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
 			this.wifiManager.startScan();
+			Log.d(TAG, "Starting");
 		} else {
 			this.setStatus(Status.ERROR_FAILED_TO_START);
-		  this.fail(Status.ERROR_FAILED_TO_START, "Wifi is not enabled");
+			this.fail(Status.ERROR_FAILED_TO_START, "Wifi is not enabled");
 			return this.status;
 		}
 
@@ -146,10 +159,11 @@ public class WifiListener extends CordovaPlugin {
 	}
 
 	private void stop() {
-		stopTimeout();
+		this.stopTimeout();
 		if (this.status != Status.STOPPED) {
-			this.cordova.getActivity().unregisterReceiver(wifiReceiver);
+			this.cordova.getActivity().unregisterReceiver(this.wifiReceiver);
 			this.setStatus(Status.STOPPED);
+			Log.d(TAG, "Stopped");
 		}
 	}
 

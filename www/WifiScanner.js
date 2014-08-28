@@ -16,7 +16,7 @@ var argscheck = require('cordova/argscheck'),
     exec = require("cordova/exec");//,
     AccessPoint = require('./AccessPoint');
 
-// Is the adapter listening?
+// Is the networks sensor running?
 var running = false;
 
 // Keeps reference to watchAccessPoints calls.
@@ -113,7 +113,7 @@ var wifi = {
         var id = utils.createUUID();
 
         var p = createCallbackPair(function(){}, function(e) {
-            removeListeners(p);
+            wifi.clearWatch(id);
             errorCallback && errorCallback(e);
         });
         listeners.push(p);
