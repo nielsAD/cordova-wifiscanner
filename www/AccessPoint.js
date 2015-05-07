@@ -10,6 +10,7 @@ var AccessPoint = function(BSSID, SSID, level) {
     this.BSSID = BSSID;
     this.SSID  = SSID;
     this.level = level;
+    this.capabilities = capabilities;
 };
 
 module.exports = AccessPoint;

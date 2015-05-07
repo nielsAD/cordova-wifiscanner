@@ -204,10 +204,11 @@ public class WifiListener extends CordovaPlugin {
 			for(ScanResult s : wifi)
 				try {
 					JSONObject o = new JSONObject();
-					o.put("BSSID",     s.BSSID);
-					o.put("SSID",      s.SSID);
-					o.put("level",     s.level);
-					r.put(o);
+					o.put("BSSID",          s.BSSID);
+					o.put("SSID",           s.SSID);
+					o.put("level",          s.level);
+					o.put("capabilities",   s.capabilities);
+                    r.put(o);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
