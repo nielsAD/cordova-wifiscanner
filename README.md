@@ -31,3 +31,4 @@ Objects
   - __BSSID__: Address of the access point __(String)__
   - __SSID__: Network name; __(String)__
   - __level__: RSSI __(Number)__
+  - __capabilities__: Capabilities of this accesspoint __(String)__
