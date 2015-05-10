@@ -6,7 +6,7 @@
  * AccessPoint class
  */
 
-var AccessPoint = function(BSSID, SSID, level) {
+var AccessPoint = function(BSSID, SSID, level, capabilities) {
     this.BSSID = BSSID;
     this.SSID  = SSID;
     this.level = level;
