@@ -32,7 +32,7 @@ var networks = null;
 function start() {
     exec(function(res) {
         var tempListeners = listeners.slice(0);
-        networks = res.map(function(r){ return new AccessPoint(r.BSSID, r.SSID, r.level); });
+        networks = res.map(function(r){ return new AccessPoint(r.BSSID, r.SSID, r.level, r.capabilities); });
         for (var i = 0, l = tempListeners.length; i < l; i++) {
             tempListeners[i].win(networks);
         }
