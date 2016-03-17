@@ -208,7 +208,7 @@ public class WifiListener extends CordovaPlugin {
 					o.put("SSID",           s.SSID);
 					o.put("level",          s.level);
 					o.put("capabilities",   s.capabilities);
-                    r.put(o);
+					r.put(o);
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
